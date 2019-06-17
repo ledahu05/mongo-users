@@ -20,14 +20,30 @@ describe('Deleting a user out of the database', () => {
     });
 
     it('class method remove', (done) => {
-        done();
+        User.deleteMany({name: 'Joe'})
+            .then(() => User.findOne({name: 'Joe'}))
+            .then((user) => {
+                assert(user === null);
+                done();
+            });
+        
     });
 
     it('class method findAndRemove', (done) => {
-        done();
+        User.findOneAndRemove({name: 'Joe'})
+            .then(() => User.findOne({name: 'Joe'}))
+            .then((user) => {
+                assert(user === null);
+                done();
+            });
     });
 
     it('class method findByIdAndRemove', (done) => {
-        done();
+        User.findByIdAndRemove(joe._id)
+            .then(() => User.findOne({name: 'Joe'}))
+            .then((user) => {
+                assert(user === null);
+                done();
+            })
     });
 });
