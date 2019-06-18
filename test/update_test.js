@@ -10,24 +10,25 @@ describe('Update a user out of the database', () => {
             .then(() => done());
     });
 
-    it('instance type set n save', (done) => {
-        
-        //in memory only
-        joe.set('name', 'Alex');
-        //persist change to db
-        joe.save()
+    function assertName(operation, done) {
+        operation
             .then(() => User.find({}))
             .then((users) => {
                 assert(users.length === 1);
                 assert(users[0].name === 'Alex');
                 done();
             })
-            
+    }
+    it('instance type set n save', (done) => {
         
+        //in memory only
+        joe.set('name', 'Alex');
+        //persist change to db
+        assertName(joe.save(), done)
     });
 
-    it('model instance ', (done) => {
-        done();
+    it('a model instance can update', (done) => {
+        assertName(joe.update({name : 'Alex'}), done);
     });
 
     it('class method ', (done) => {
