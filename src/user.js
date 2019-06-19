@@ -11,9 +11,12 @@ const UserSchema = new Schema({
             message: 'Name must be longer than 2 characters.'
         },
         required: [true, 'Name is required.']
-    },
-    postCount: Number,
+    }, 
     posts: [PostSchema]
+});
+
+UserSchema.virtual('postCount').get(function() {
+    return this.posts.length;
 });
 
 //user is created if it does not exist
