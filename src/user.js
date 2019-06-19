@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+const PostSchema = require('./posts');
 const Schema = mongoose.Schema;
+
 
 const UserSchema = new Schema({
     name: {
@@ -10,7 +12,8 @@ const UserSchema = new Schema({
         },
         required: [true, 'Name is required.']
     },
-    postCount: Number
+    postCount: Number,
+    posts: [PostSchema]
 });
 
 //user is created if it does not exist
