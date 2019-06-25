@@ -20,8 +20,15 @@ const UserSchema = new Schema({
     }]
 });
 
-UserSchema.virtual('postCount').get(function() {
+UserSchema.virtual('postCount').get(function(next) {
     return this.posts.length;
+});
+
+UserSchema.pre('remove', function(next) {
+    const BlogPost = mongoose.model('blogPost');
+    //this === joe
+    BlogPost.remove({ _id: { $in: this.blogPosts }})
+        .then(() => next());
 });
 
 //user is created if it does not exist
