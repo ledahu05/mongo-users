@@ -20,7 +20,7 @@ describe('Middleware', () => {
 
     it('users clean up dangling blogposts on remove', (done) => {
         joe.remove()
-            .then(() => BlogPost.count())
+            .then(() => BlogPost.countDocuments())
             .then((count) => {
                 assert(count === 0)
                 done();
